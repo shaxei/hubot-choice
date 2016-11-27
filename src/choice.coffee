@@ -1,22 +1,16 @@
 # Description
-#   A hubot script that does the things
-#
+#   A hubot script for choosing at random
 # Configuration:
-#   LIST_OF_ENV_VARS_TO_SET
+#   None
 #
 # Commands:
-#   hubot hello - <what the respond trigger does>
-#   orly - <what the hear trigger does>
-#
-# Notes:
-#   <optional notes required for the script>
+#   <item1>,<item2>,<item3>から選んで - choose at random
 #
 # Author:
 #   aki
 
 module.exports = (robot) ->
-  robot.respond /hello/, (res) ->
-    res.reply "hello!"
-
-  robot.hear /orly/, (res) ->
-    res.send "yarly"
+  robot.hear /(.+)から選んで/, (msg) ->
+    items = msg.match[1].script(/[ ・、 \s]+/)
+    item = msg.random items
+    msg.reply "#{item}で！"
